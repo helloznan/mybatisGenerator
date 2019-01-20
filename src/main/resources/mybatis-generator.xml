@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+ PUBLIC " -//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+ "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 加载属性文件 -->
+	<properties resource="application.properties"/>
+
+	<!-- 指定上下文 || 不生成simple相关代码 || defaultModelType=flat每张表生成对应的实体、mapper、xml。 -->
+	<context id="mysqlContext" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+		<!-- 指定数据表前后闭合符号，防止个别表明如user info引起sql语法异常，转变为'user info' -->
+		<property name="beginningDelimiter" value="'"/>
+		<property name="endingDelimiter" value="'"/>
+		
+		<!-- 生成注释，注释来源位db表的注释 -->
+		<commentGenerator>
+			<!-- 忽略日期，避免重复执行生成器代码时候，因为日期不通而被覆盖 -->
+			<property name="suppressDate" value="true"/>
+			<!-- 添加表注释位实体类注释 -->
+			<!-- <property name="addRemarkComments" value="true"/> -->
+			<!-- 忽略所有注释 -->
+			<property name="suppressAllComments" value="true"/>
+		</commentGenerator>
+		
+		<!-- 数据库连接，必须连接上才能执行生成器业务逻辑 -->
+		<jdbcConnection 
+			driverClass="${mybatis.generator.dbdriver}" 
+			connectionURL="${spring.datasource.url}"
+			userId="${spring.datasource.username}"
+			password="${spring.datasource.password}">
+		</jdbcConnection>
+		
+		<!-- 实体类 -->
+		<javaModelGenerator 
+			targetPackage="${mybatis.generator.entity.package}" 
+			targetProject="${mybatis.generator.entity.target}">
+			<property name="trimStrings" value="true"/>
+		</javaModelGenerator>
+		
+		<!-- mapper.xml文件 -->
+		<sqlMapGenerator 
+			targetPackage="${mybatis.generator.mapperXml.package}" 
+			targetProject="${mybatis.generator.mapperXml.target}">
+		</sqlMapGenerator>
+			
+		<!-- mapper接口,指定为xml方式生成代码，而不是注解 -->
+		<javaClientGenerator 
+			targetPackage="${mybatis.generator.mapper.package}" 
+			type="XMLMAPPER" 
+			targetProject="${mybatis.generator.mapper.target}">
+		</javaClientGenerator>
+			 
+		<!-- 需要生成的实体类对应的表名，多个实体类复制多份该配置即可 -->
+        <table tableName="usr" domainObjectName="Usr"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true" enableInsert="true" enableUpdateByPrimaryKey="true">
+               <!-- 所有表都有主键自增的ID字段，生成器根据对应数据库，生成对应的自增代码，insert语句后可以立刻返回记录ID -->
+               <generatedKey column="id" sqlStatement="MySql"/>
+        </table>
+        <table tableName="roles" domainObjectName="Roles"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false" >
+               <!-- 所有表都有主键自增的ID字段，生成器根据对应数据库，生成对应的自增代码，insert语句后可以立刻返回记录ID -->
+               <generatedKey column="id" sqlStatement="MySql"/>
+        </table>
+        <table tableName="privilege" domainObjectName="Privilege"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false" >
+               <!-- 所有表都有主键自增的ID字段，生成器根据对应数据库，生成对应的自增代码，insert语句后可以立刻返回记录ID -->
+               <generatedKey column="id" sqlStatement="MySql"/>
+        </table>
+        <table tableName="school" domainObjectName="School"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false" >
+               <!-- 所有表都有主键自增的ID字段，生成器根据对应数据库，生成对应的自增代码，insert语句后可以立刻返回记录ID -->
+               <generatedKey column="id" sqlStatement="MySql"/>
+        </table>
+	</context>
+</generatorConfiguration>
